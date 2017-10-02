@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^popular/$', test),
     url(r'^new/$', test),
 
-    url(r'^question/\d+/$', include('qa.urls')),
+    url(r'^question/', include('qa.urls')),
 
    
    # url(r'^admin/', admin.site.urls),
