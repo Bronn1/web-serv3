@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponse,  Http404
 
-from django.views.decorators import require_GET
+from django.views.decorators.http import require_GET
 
 from django.core.paginator import Paginator 
 
@@ -21,29 +21,29 @@ def question(request, num ):
 @require_GET	
 def popular(request):
 	questions = Question.objects.order_by('-rating').all()
-	page = paginate(request, questions)
+	paginator, page = paginate(request, questions)
 
-	return render(request, 'question.html', {'titel': 'popular questions', })
+	return render(request, 'page1.html', {'questions': page.object_list, 'paginator': paginator,  'page': page,  })
 
 @require_GET
 def main(request):
 	questions = Question.objects.order_by('-id').all()
-	page = paginate(request, page)
+	paginator, page = paginate(request, questions)
 	
-	return render(request, 'question.html', {'titel': 'main page'}, )
+	return render(request, 'page1.html', {'questions': page.object_list, 'paginator': paginator, 'page': page, } )
 
-def paginate(request, qs)
+def paginate(request, qs):
 	limit = 10
 	try:
 		page = int(request.GET.get('page', 1))
-	except ValueError
+	except ValueError:
 		raise Http404
 		
 	paginator = Paginator(qs, limit)
 	
 	page = paginator.page(page)
 	
-	return page
+	return paginator, page
 
 
 
