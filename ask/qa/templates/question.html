@@ -2,10 +2,19 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<titel> {{ titel }}</titel>
+	<titel> </titel>
 </head>
 
 <body>
-	<h1>{{titel}}</h1>
+	<h3>Titel: {{ q.title }}</h3>
+	<h3>Text: {{ q.text }} </h3>
+	
+	<h3>Answers:</h3>
+
+	<ul> 
+	{% for answer in answers %}
+		<li>{{ answer.text }}</li>
+	{% endfor %}
+	</ul>
 </body>
 </html>

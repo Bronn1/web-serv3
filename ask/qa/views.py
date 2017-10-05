@@ -15,8 +15,9 @@ def test(request, *args, **kwargs):
 
 def question(request, num ):
 	q = get_object_or_404(Question, id=num)
+	answers = Answer.objects.filter(question = q)
 	
-	return render(request, 'question.html', { 'titel': 'Question', })
+	return render(request, 'question.html', { 'q': q, 'answers': answers,  })
 
 @require_GET	
 def popular(request):
